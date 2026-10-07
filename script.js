@@ -201,7 +201,8 @@ const ALL_GAMES_SEARCH = [
   { title: 'Tumble Tussle', cat: '2-Player / Physics Ragdoll Brawler', img: 'assets/tumble_tussle.jpg', url: 'TUMBLE TUSSLE.html' },
   { title: 'Flip Bottle Run', cat: 'Arcade / Physics Runner', img: 'assets/bottle_flip.jpg', url: 'https://bottle-flip-navy.vercel.app/' },
   { title: 'Flight Simulator 3D', cat: 'Simulation / 3D Airplane', img: 'assets/flight_sim.jpg', url: 'Plane_Landing_Game_v2/index.html' },
-  { title: 'Stack It', cat: 'Arcade / 3D Tower Stacking', img: 'assets/stack_it.jpg', url: 'neew/index.html' }
+  { title: 'Stack It', cat: 'Arcade / 3D Tower Stacking', img: 'assets/stack_it.jpg', url: 'neew/index.html' },
+  { title: 'Magnet Ball Chaos', cat: 'Physics / Electromagnetic Puzzle', img: 'assets/magnet_ball_chaos.jpg', url: 'magnet-ball-chaos.html' }
 ];
 
 searchInput?.addEventListener('input', (e) => {
@@ -322,6 +323,14 @@ const GAME_DETAILS = {
       { key: 'Space', action: 'Drop Block' },
       { key: 'P / Esc', action: 'Pause' }
     ]
+  },
+  'Magnet Ball Chaos': {
+    desc: 'Harness electromagnetic fields across 20 puzzle levels! Move your cursor or finger to position the magnetic core, toggle between Attract and Repel polarities, and guide chaotic metal balls into energy goals.',
+    controls: [
+      { key: 'Move Pointer', action: 'Position Magnet' },
+      { key: 'Click / Space', action: 'Toggle Polarity' },
+      { key: 'P / Esc', action: 'Pause' }
+    ]
   }
 };
 
@@ -394,7 +403,8 @@ const ALL_PLAYABLE_GAMES = [
   { name: 'Trust Issues', url: 'Trust Issues.html' },
   { name: 'Flip Bottle Run', url: 'https://bottle-flip-navy.vercel.app/' },
   { name: 'Flight Simulator 3D', url: 'Plane_Landing_Game_v2/index.html' },
-  { name: 'Stack It', url: 'neew/index.html' }
+  { name: 'Stack It', url: 'neew/index.html' },
+  { name: 'Magnet Ball Chaos', url: 'magnet-ball-chaos.html' }
 ];
 
 function triggerSurpriseGame() {
@@ -760,7 +770,7 @@ const MOOD_MAP = {
   hype:        { title: 'Tumblebolt', url: 'Tumblebolt.html', img: 'assets/tumblebolt.jpg', reason: 'Adrenaline-packed 3D stunt racing at full throttle!' },
   chill:       { title: 'Stack It', url: 'neew/index.html', img: 'assets/stack_it.jpg', reason: 'Hypnotic neon block stacking — relax, time your drops, and build sky-high.' },
   competitive: { title: 'Tumblebolt', url: 'Tumblebolt.html', img: 'assets/tumblebolt.jpg', reason: 'Chase track records and master every stunt course!' },
-  chaotic:     { title: 'Trust Issues', url: 'Trust Issues.html', img: 'assets/trust_issues.jpg', reason: 'Nothing can be trusted. Absolute controlled chaos!' },
+  chaotic:     { title: 'Magnet Ball Chaos', url: 'magnet-ball-chaos.html', img: 'assets/magnet_ball_chaos.jpg', reason: 'Electromagnetic forces, wild ricochets, and absolute controlled chaos!' },
   social:      { title: 'Tumble Tussle', url: 'TUMBLE TUSSLE.html', img: 'assets/tumble_tussle.jpg', reason: 'Grab a friend and brawl on the same keyboard!' },
   explore:     { title: 'Flight Simulator 3D', url: 'Plane_Landing_Game_v2/index.html', img: 'assets/flight_sim.jpg', reason: 'Soar above the clouds in immersive 3D simulation.' }
 };
@@ -818,7 +828,7 @@ moodResultPlay?.addEventListener('click', () => {
 const ACHIEVEMENTS = [
   { key: 'first_play',   name: 'First Play!',        desc: 'You played your first game',      condition: count => count === 1 },
   { key: 'three_games',  name: 'Triple Threat',      desc: 'Played 3 different games',         condition: count => count === 3 },
-  { key: 'all_games',    name: 'Game Master',         desc: 'Tried every game on GameZone!',    condition: count => count >= 6 },
+  { key: 'all_games',    name: 'Game Master',         desc: 'Tried every game on GameZone!',    condition: count => count >= 7 },
 ];
 
 function checkAchievements(title) {
