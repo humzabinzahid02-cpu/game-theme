@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0b1026">
+<title>Stack It</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="game" aria-label="Stack It game board"></canvas>
+<div id="loading">Loading…</div>
+
+<header id="hud" class="hidden">
+  <div class="hud-box"><span class="lbl">SCORE</span><span id="hud-score" class="val">0</span></div>
+  <div class="hud-box center"><span class="lbl">STACK</span><span id="hud-stack" class="val">0 / 30</span></div>
+  <div class="hud-btns">
+    <button class="icon snd" data-action="sound"></button>
+    <button class="icon" data-action="pause" aria-label="Pause">⏸</button>
+  </div>
+</header>
+
+<section id="menu" class="screen hidden">
+  <h1 class="title">STACK IT</h1>
+  <p class="sub">How high can you go?</p>
+  <div class="stats">
+    <div class="stat"><span class="lbl">BEST SCORE</span><span id="menu-best" class="val">0</span></div>
+    <div class="stat"><span class="lbl">BEST STACK</span><span id="menu-stack" class="val">0</span></div>
+  </div>
+  <button class="btn primary" data-action="play">PLAY</button>
+  <p class="hint">Tap / Click / Space to drop</p>
+  <button class="icon snd" data-action="sound"></button>
+</section>
+
+<section id="pause" class="screen hidden" role="dialog" aria-label="Paused">
+  <h2>PAUSED</h2>
+  <button class="btn primary" data-action="resume">RESUME</button>
+  <button class="btn" data-action="restart">RESTART</button>
+  <button class="btn" data-action="menu">MENU</button>
+</section>
+
+<section id="over" class="screen hidden" role="dialog" aria-label="Game over">
+  <h2>GAME OVER</h2>
+  <p id="over-new" class="newbest hidden">NEW BEST!</p>
+  <div class="stats">
+    <div class="stat"><span class="lbl">SCORE</span><span id="over-score" class="val">0</span></div>
+    <div class="stat"><span class="lbl">STACK</span><span id="over-stack" class="val">0 / 30</span></div>
+    <div class="stat"><span class="lbl">BEST</span><span id="over-best" class="val">0</span></div>
+  </div>
+  <button class="btn primary" data-action="restart">TRY AGAIN</button>
+  <button class="btn" data-action="menu">MENU</button>
+</section>
+
+<section id="victory" class="screen light hidden" role="dialog" aria-label="Victory">
+  <h2>YOU DID IT!</h2>
+  <p class="sub">30 STACKS</p>
+  <p id="vic-new" class="newbest hidden">NEW BEST!</p>
+  <div class="stats">
+    <div class="stat"><span class="lbl">FINAL SCORE</span><span id="vic-score" class="val">0</span></div>
+  </div>
+  <button class="btn primary" data-action="restart">PLAY AGAIN</button>
+  <button class="btn" data-action="menu">MENU</button>
+</section>
+
+<script src="game.js"></script>
+</body>
+</html>

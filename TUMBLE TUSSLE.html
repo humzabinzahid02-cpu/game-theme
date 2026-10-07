@@ -28,7 +28,23 @@ button:active{transform:translateY(4px);box-shadow:0 1px 0 #b88d00}
 #hc{text-align:center}#tm{font-size:clamp(34px,6vw,64px);text-shadow:3px 3px 0 #0006}#tm.hot{color:#ff4d6d}
 #obj{font-size:clamp(13px,2vw,22px);opacity:.9}
 #big{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(70px,18vw,200px);color:var(--ac);text-shadow:6px 6px 0 #e0457b;pointer-events:none;opacity:0}
-#ban{position:fixed;top:22%;left:0;right:0;text-align:center;font-size:clamp(24px,4.5vw,50px);color:#fff;text-shadow:3px 3px 0 #e0457b;pointer-events:none}
+.pc-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(47,214,196,0.18);border:1.5px solid var(--p2);color:var(--p2);padding:6px 18px;border-radius:50px;font-size:clamp(11px,1.4vw,14px);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px;box-shadow:0 4px 18px rgba(47,214,196,0.25)}
+.pc-badge svg{width:16px;height:16px}
+.pc-only-screen-blocker{display:none;position:fixed;inset:0;z-index:999999;background:radial-gradient(circle at 50% 30%,#291f63 0%,#0f0b24 100%);flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;color:#fff;box-sizing:border-box}
+.pc-blocker-card{max-width:440px;width:100%;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,210,63,0.35);border-radius:24px;padding:32px 22px;backdrop-filter:blur(14px);box-shadow:0 20px 50px rgba(0,0,0,0.6);display:flex;flex-direction:column;align-items:center;gap:12px;box-sizing:border-box}
+.pc-blocker-icon{width:64px;height:64px;border-radius:20px;background:rgba(255,210,63,0.15);border:1.5px solid var(--ac);color:var(--ac);display:flex;align-items:center;justify-content:center}
+.pc-blocker-icon svg{width:34px;height:34px}
+.pc-blocker-tag{background:var(--ac);color:#241a55;font-size:11px;font-weight:900;letter-spacing:1.5px;padding:4px 12px;border-radius:20px;text-transform:uppercase}
+.pc-blocker-title{font-size:clamp(22px,5.5vw,28px);margin:0;color:#fff}
+.pc-blocker-desc{font-size:14px;line-height:1.5;color:rgba(255,255,255,0.85);margin:0;font-weight:500}
+.pc-blocker-keys{display:flex;gap:10px;margin:6px 0;flex-wrap:wrap;justify-content:center}
+.pc-blocker-pill{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);padding:6px 12px;border-radius:10px;font-size:12px}
+.pc-blocker-pill kbd{background:#110d29;border:1px solid rgba(255,255,255,0.3);padding:2px 6px;border-radius:4px;margin:0 2px;font-family:monospace}
+.pc-blocker-footer{font-size:13px;color:var(--p2);margin:0;font-weight:700}
+@media (max-width:768px){
+  .pc-only-screen-blocker{display:flex}
+  #menu,#hud,canvas,#res,#pau{display:none !important}
+}
 </style></head><body>
 <canvas id="cv"></canvas>
 <div id="hud"><div class="pl" id="h1" style="background:var(--p1);color:#241a55">P1 <b>0</b> <span></span></div>
@@ -36,14 +52,35 @@ button:active{transform:translateY(4px);box-shadow:0 1px 0 #b88d00}
 <div class="pl" id="h2" style="background:var(--p2);color:#103;text-align:right">P2 <b>0</b> <span></span></div></div>
 <div id="big"></div><div id="ban"></div>
 
+<!-- Mobile / Small screen notice (PC Screen Only) -->
+<div class="pc-only-screen-blocker" id="pcScreenBlocker">
+  <div class="pc-blocker-card">
+    <div class="pc-blocker-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+    </div>
+    <div class="pc-blocker-tag">COMPUTER GAME</div>
+    <h2 class="pc-blocker-title">PC Screen Only</h2>
+    <p class="pc-blocker-desc"><strong>Tumble Tussle</strong> is a 2-player local battle game engineered exclusively for computer and laptop screens with a physical keyboard.</p>
+    <div class="pc-blocker-keys">
+      <div class="pc-blocker-pill">P1: <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></div>
+      <div class="pc-blocker-pill">P2: <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd></div>
+    </div>
+    <p class="pc-blocker-footer">Please open on a computer screen to play with a friend!</p>
+  </div>
+</div>
+
 <div class="ov on" id="menu">
+<div class="pc-badge">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+  COMPUTER GAME · PC SCREEN ONLY
+</div>
 <h1>TUMBLE TUSSLE</h1>
 <div class="ctl"><div style="background:#ff8a3d44">PLAYER 1<br>A / D = MOVE<br>W = JUMP<br>S = KICK</div><div style="background:#2fd6c444">PLAYER 2<br>← / → = MOVE<br>↑ = JUMP<br>↓ = KICK</div></div>
 <div><div style="font-size:14px;opacity:.8">MODE</div><div id="modes"></div></div>
 <div><div style="font-size:14px;opacity:.8">ARENA</div><div id="arenas"></div></div>
-<div class="row"><button id="play">▶ 2 PLAYER</button><button id="party" style="background:#ff5fa2;box-shadow:0 5px 0 #a02b63">🎉 PARTY MODE</button></div>
+<div class="row"><button id="play">2 PLAYER</button><button id="party" style="background:#ff5fa2;box-shadow:0 5px 0 #a02b63">PARTY MODE</button></div>
 <div class="row"><span class="chip" id="tmu">MUSIC ON</span><span class="chip" id="tsf">SFX ON</span></div>
-<div style="font-size:13px;opacity:.7">First to 5 round wins takes the match · Esc = pause · Phones: tap sides to move/jump (practice)</div>
+<div style="font-size:13px;opacity:.7">First to 5 round wins takes the match · Esc = pause · Computer keyboard required (P1 &amp; P2)</div>
 </div>
 <div class="ov" id="res"><h2 id="rt"></h2><div id="rs" style="font-size:clamp(24px,4vw,44px)"></div>
 <div class="row"><button id="again">↻ REMATCH</button><button id="chg">CHANGE MODE / ARENA</button><button id="home">MAIN MENU</button></div></div>
@@ -87,7 +124,7 @@ function touchK(e){e.preventDefault();K.KeyA=K.KeyD=K.KeyW=false;for(const t of 
 ['touchstart','touchmove','touchend'].forEach(n=>cv.addEventListener(n,touchK,{passive:false}));
 // ---------- menu ----------
 function buildMenu(){$('modes').innerHTML='';MODES.forEach((m,i)=>{const c=document.createElement('span');c.className='chip'+(i===modeSel?' sel':'');c.textContent=m.n;c.onclick=()=>{modeSel=i;S.click();buildMenu()};$('modes').appendChild(c)});
- $('arenas').innerHTML='';[{n:'🎲 RANDOM'},...ARENAS].forEach((a,i)=>{const c=document.createElement('span');c.className='chip'+(i-1===arenaSel?' sel':'');c.textContent=a.n;c.onclick=()=>{arenaSel=i-1;S.click();buildMenu()};$('arenas').appendChild(c)});}
+ $('arenas').innerHTML='';[{n:'RANDOM'},...ARENAS].forEach((a,i)=>{const c=document.createElement('span');c.className='chip'+(i-1===arenaSel?' sel':'');c.textContent=a.n;c.onclick=()=>{arenaSel=i-1;S.click();buildMenu()};$('arenas').appendChild(c)});}
 function show(id,on){$(id).classList.toggle('on',on)}
 function toMenu(){state='MENU';partyMode=false;show('menu',true);show('res',false);show('pau',false);$('hud').classList.remove('on');buildMenu()}
 $('play').onclick=()=>{S.click();partyMode=false;wins=[0,0];startRound(true)};
@@ -125,7 +162,7 @@ function startRound(first){
  if(mode.id!=='goal'&&mode.id!=='coin')schedEvents();
  if(mode.id==='surv')sched.push({t:2,fn:rockLoop});
  else if(mode.id!=='goal')sched.push({t:12,fn:()=>{}})}
-function schedEvents(){let t=7+Math.random()*3;const evs=['wind','lowg','ball'];const go=()=>{const e=evs[Math.random()*3|0];banner(e==='wind'?'💨 WIND INCOMING!':e==='lowg'?'🌙 LOW GRAVITY!':'⚠ GIANT BALL!');sched.push({t:clock+1.2,fn:()=>fire(e)});sched.push({t:clock+9,fn:go})};sched.push({t:t,fn:go})}
+function schedEvents(){let t=7+Math.random()*3;const evs=['wind','lowg','ball'];const go=()=>{const e=evs[Math.random()*3|0];banner(e==='wind'?'WIND INCOMING!':e==='lowg'?'LOW GRAVITY!':'GIANT BALL!');sched.push({t:clock+1.2,fn:()=>fire(e)});sched.push({t:clock+9,fn:go})};sched.push({t:t,fn:go})}
 function fire(e){if(state!=='PLAYING')return;if(e==='lowg'){eng.gravity.y=.35;sched.push({t:clock+4,fn:()=>{eng.gravity.y=1}})}
  else if(e==='wind'){const d=Math.random()<.5?-1:1;windV=d;sched.push({t:clock+3,fn:()=>{windV=0}})}
  else{const d=Math.random()<.5?-1:1,b=Bodies.circle(d<0?1400:-200,300,50,{restitution:.8,density:.0012,label:'haz'});Body.setVelocity(b,{x:-d*7,y:0});b.life=1;Composite.add(eng.world,b);haz.push(b)}}
@@ -173,12 +210,12 @@ function step(dt){
  tLeft-=dt;if(Math.ceil(tLeft)!==nextTick&&tLeft<=10&&tLeft>0){nextTick=Math.ceil(tLeft);S.tick()}
  if(mode.id==='goal'&&(rsc[0]>=3||rsc[1]>=3))return endRound(rsc[0]>=3?0:1);
  if(tLeft<=0){tLeft=0;if(rsc[0]===rsc[1])endRound(-1);else endRound(rsc[0]>rsc[1]?0:1)}}
-function goal(i){if(state!=='PLAYING')return;rsc[i]++;S.goal();banner('⚽ GOAL! PLAYER '+(i+1));burst(ball.position.x,ball.position.y,COLS[i][0],24);shake=10;Body.setPosition(ball,{x:600,y:300});Body.setVelocity(ball,{x:0,y:0});pl.forEach((p,j)=>place(p,A.s[j][0],A.s[j][1]))}
+function goal(i){if(state!=='PLAYING')return;rsc[i]++;S.goal();banner('GOAL! PLAYER '+(i+1));burst(ball.position.x,ball.position.y,COLS[i][0],24);shake=10;Body.setPosition(ball,{x:600,y:300});Body.setVelocity(ball,{x:0,y:0});pl.forEach((p,j)=>place(p,A.s[j][0],A.s[j][1]))}
 function outOfBounds(p){if(state!=='PLAYING')return;if(mode.id==='ko'||mode.id==='surv'){p.out=1;endRound(1-p.i);return}
  p.out=1;sched.push({t:clock+1,fn:()=>{p.out=0;place(p,A.s[p.i][0],A.s[p.i][1]-60)}});place(p,600,-2000)}
 function endRound(w){if(state!=='PLAYING')return;state='ROUND_END';windV=0;lastWinner=w;endT=1.4;if(w>=0){wins[w]++;S.win();burst(pl[w].t.position.x,pl[w].t.position.y,'#ffd23f',30);pl[w].all.forEach(b=>Body.setVelocity(b,{x:b.velocity.x,y:-8}))}else S.lose();banner(w<0?'DRAW!':'PLAYER '+(w+1)+' WINS!')}
-function showResult(){state='ROUND_RES';const m=wins[0]>=5||wins[1]>=5;$('rt').textContent=lastWinner<0?'DRAW!':(m?'🏆 MATCH WINNER: PLAYER ':'ROUND WINNER: PLAYER ')+(lastWinner+1);$('rt').style.color=lastWinner<0?'#fff':COLS[lastWinner][0];
- $('rs').innerHTML='P1 <b>'+wins[0]+'</b> — <b>'+wins[1]+'</b> P2';$('again').textContent=m?'↻ NEW MATCH':(partyMode?'▶ NEXT ROUND':'↻ REMATCH');show('res',true);$('ban').textContent=''}
+function showResult(){state='ROUND_RES';const m=wins[0]>=5||wins[1]>=5;$('rt').textContent=lastWinner<0?'DRAW!':(m?'MATCH WINNER: PLAYER ':'ROUND WINNER: PLAYER ')+(lastWinner+1);$('rt').style.color=lastWinner<0?'#fff':COLS[lastWinner][0];
+ $('rs').innerHTML='P1 <b>'+wins[0]+'</b> — <b>'+wins[1]+'</b> P2';$('again').textContent=m?'NEW MATCH':(partyMode?'NEXT ROUND':'REMATCH');show('res',true);$('ban').textContent=''}
 // ---------- render ----------
 function hud(){$('h1').firstElementChild.textContent=wins[0];$('h2').firstElementChild.textContent=wins[1];
  const fmt=v=>mode.id==='king'?v.toFixed(1)+'s':mode.id==='ko'||mode.id==='surv'?'':v;$('h1').lastElementChild.textContent=fmt(rsc[0]);$('h2').lastElementChild.textContent=fmt(rsc[1]);

@@ -1,0 +1,48 @@
+:root{--top:env(safe-area-inset-top,0px);--bottom:env(safe-area-inset-bottom,0px);--left:env(safe-area-inset-left,0px);--right:env(safe-area-inset-right,0px);--gold:#ffd54a}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+html,body{margin:0;height:100%;overflow:hidden;background:#0b1026;color:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overscroll-behavior:none;touch-action:none}
+#game{position:fixed;inset:0;display:block;width:100%;height:100%;touch-action:none}
+#loading{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0b1026;z-index:20;font-weight:800;letter-spacing:.2em}
+.hidden{display:none!important}
+
+#hud{position:fixed;z-index:5;top:0;left:0;right:0;display:grid;grid-template-columns:1fr auto 1fr;align-items:start;gap:8px;padding:calc(var(--top) + 10px) calc(var(--right) + 12px) 0 calc(var(--left) + 12px);pointer-events:none}
+.hud-box{display:flex;flex-direction:column;line-height:1.05;min-width:0;text-shadow:0 2px 6px rgba(0,0,0,.5)}
+.hud-box.center{align-items:center}
+.lbl{font-size:clamp(.6rem,2.4vw,.8rem);letter-spacing:.14em;opacity:.8;font-weight:700}
+.val{font-size:clamp(1.3rem,5.5vw,2.2rem);font-weight:900;font-variant-numeric:tabular-nums;display:inline-block}
+.hud-btns{justify-self:end;display:flex;gap:8px;pointer-events:auto}
+.icon{width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font-size:1.2rem;cursor:pointer;transition:transform .12s,background .12s}
+.icon:hover{background:rgba(255,255,255,.3)}
+.icon:active{transform:scale(.92)}
+.pop{animation:pop .22s ease-out}
+@keyframes pop{0%{transform:scale(1.35)}100%{transform:scale(1)}}
+
+.screen{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(10px,2.4vh,20px);padding:calc(var(--top) + 16px) calc(var(--right) + 16px) calc(var(--bottom) + 16px) calc(var(--left) + 16px);background:rgba(8,12,32,.62);overflow-y:auto;text-align:center;animation:fade .25s ease-out}
+.screen.light{background:rgba(8,12,32,.3)}
+#menu{background:radial-gradient(circle at 50% 30%,rgba(60,90,200,.35),rgba(8,12,32,.8))}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+h1,h2{margin:0;font-weight:900;letter-spacing:.04em;text-shadow:0 4px 0 rgba(0,0,0,.3)}
+.title{font-size:clamp(2.6rem,13vw,5.5rem);background:linear-gradient(#fff,#ffd54a 70%,#ff8a3d);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 4px 0 rgba(0,0,0,.35));animation:bob 2.4s ease-in-out infinite}
+h2{font-size:clamp(2rem,9vw,3.6rem)}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.sub{margin:0;font-size:clamp(1rem,4vw,1.5rem);opacity:.9;font-weight:700}
+.hint{margin:0;opacity:.7;font-size:clamp(.8rem,3vw,1rem)}
+.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(10px,3vw,28px)}
+.stat{display:flex;flex-direction:column;min-width:90px;padding:10px 16px;border-radius:16px;background:rgba(255,255,255,.1)}
+.newbest{margin:0;color:var(--gold);font-weight:900;font-size:clamp(1.2rem,5vw,1.8rem);letter-spacing:.1em;animation:pulse .7s ease-in-out infinite alternate}
+@keyframes pulse{to{transform:scale(1.15)}}
+
+.btn{min-width:min(240px,70vw);padding:14px 28px;border:0;border-radius:999px;font:inherit;font-weight:900;font-size:clamp(1rem,4vw,1.3rem);letter-spacing:.08em;color:#fff;background:linear-gradient(#5b7cff,#3a52d6);box-shadow:0 5px 0 #24338f,0 10px 18px rgba(0,0,0,.35);cursor:pointer;transition:transform .12s,box-shadow .12s,filter .12s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #24338f}
+.btn:focus-visible,.icon:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.btn.primary{font-size:clamp(1.2rem,5vw,1.7rem);padding:16px 36px;background:linear-gradient(#ffd54a,#ff9a2e);color:#3b2200;box-shadow:0 6px 0 #b86a00,0 12px 20px rgba(0,0,0,.35)}
+.btn.primary:active{box-shadow:0 2px 0 #b86a00}
+
+@media (max-height:480px){
+  .screen{gap:8px}.title{font-size:2.4rem}h2{font-size:1.8rem}.stat{padding:6px 12px}.btn{padding:10px 22px}
+}
+@media (min-width:1024px){.stat{min-width:130px}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}

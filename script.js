@@ -200,7 +200,8 @@ const ALL_GAMES_SEARCH = [
   { title: 'Trust Issues', cat: 'Troll / Puzzle Platformer', img: 'assets/trust_issues.jpg', url: 'Trust Issues.html' },
   { title: 'Tumble Tussle', cat: '2-Player / Physics Ragdoll Brawler', img: 'assets/tumble_tussle.jpg', url: 'TUMBLE TUSSLE.html' },
   { title: 'Flip Bottle Run', cat: 'Arcade / Physics Runner', img: 'assets/bottle_flip.jpg', url: 'https://bottle-flip-navy.vercel.app/' },
-  { title: 'Flight Simulator 3D', cat: 'Simulation / 3D Airplane', img: 'assets/flight_sim.jpg', url: 'Plane_Landing_Game_v2/index.html' }
+  { title: 'Flight Simulator 3D', cat: 'Simulation / 3D Airplane', img: 'assets/flight_sim.jpg', url: 'Plane_Landing_Game_v2/index.html' },
+  { title: 'Stack It', cat: 'Arcade / 3D Tower Stacking', img: 'assets/stack_it.jpg', url: 'neew/index.html' }
 ];
 
 searchInput?.addEventListener('input', (e) => {
@@ -278,8 +279,9 @@ const GAME_DETAILS = {
     ]
   },
   'Tumble Tussle': {
-    desc: 'Grab a friend and brawl on one keyboard! A chaotic 2-player physics ragdoll battle arena with Knockout, Goal Rush, Coin Chaos, King of the Hill, and Party Mode across floating islands.',
+    desc: 'Computer Game (PC Screen Only): Grab a friend and brawl on one physical keyboard! A chaotic 2-player local physics ragdoll battle arena with Knockout, Goal Rush, Coin Chaos, King of the Hill, and Party Mode across floating islands.',
     controls: [
+      { key: 'Platform', action: 'PC / Computer Screen' },
       { key: 'P1: A D', action: 'Move' },
       { key: 'P1: W', action: 'Jump' },
       { key: 'P1: S', action: 'Kick' },
@@ -311,6 +313,14 @@ const GAME_DETAILS = {
       { key: 'W / S', action: 'Pitch / Altitude' },
       { key: 'A / D', action: 'Roll / Turn' },
       { key: 'Throttle', action: 'Engine Power' }
+    ]
+  },
+  'Stack It': {
+    desc: 'Test your reflexes and precision timing in this hypnotic 3D neon tower stacker! Tap or press space at the exact moment to slice and stack glowing blocks up to 30 levels high. Rack up combo streaks and set high scores!',
+    controls: [
+      { key: 'Tap / Click', action: 'Drop Block' },
+      { key: 'Space', action: 'Drop Block' },
+      { key: 'P / Esc', action: 'Pause' }
     ]
   }
 };
@@ -383,7 +393,8 @@ const ALL_PLAYABLE_GAMES = [
   { name: 'Tumble Tussle', url: 'TUMBLE TUSSLE.html' },
   { name: 'Trust Issues', url: 'Trust Issues.html' },
   { name: 'Flip Bottle Run', url: 'https://bottle-flip-navy.vercel.app/' },
-  { name: 'Flight Simulator 3D', url: 'Plane_Landing_Game_v2/index.html' }
+  { name: 'Flight Simulator 3D', url: 'Plane_Landing_Game_v2/index.html' },
+  { name: 'Stack It', url: 'neew/index.html' }
 ];
 
 function triggerSurpriseGame() {
@@ -747,13 +758,20 @@ window.openGameModal = function(url, title) {
 // ---- Mood-Based Game Finder ----
 const MOOD_MAP = {
   hype:        { title: 'Tumblebolt', url: 'Tumblebolt.html', img: 'assets/tumblebolt.jpg', reason: 'Adrenaline-packed 3D stunt racing at full throttle!' },
-  chill:       { title: 'Flip Bottle Run', url: 'https://bottle-flip-navy.vercel.app/', img: 'assets/bottle_flip.jpg', reason: 'Relaxing one-tap physics — flip, land, repeat.' },
+  chill:       { title: 'Stack It', url: 'neew/index.html', img: 'assets/stack_it.jpg', reason: 'Hypnotic neon block stacking — relax, time your drops, and build sky-high.' },
   competitive: { title: 'Tumblebolt', url: 'Tumblebolt.html', img: 'assets/tumblebolt.jpg', reason: 'Chase track records and master every stunt course!' },
   chaotic:     { title: 'Trust Issues', url: 'Trust Issues.html', img: 'assets/trust_issues.jpg', reason: 'Nothing can be trusted. Absolute controlled chaos!' },
   social:      { title: 'Tumble Tussle', url: 'TUMBLE TUSSLE.html', img: 'assets/tumble_tussle.jpg', reason: 'Grab a friend and brawl on the same keyboard!' },
   explore:     { title: 'Flight Simulator 3D', url: 'Plane_Landing_Game_v2/index.html', img: 'assets/flight_sim.jpg', reason: 'Soar above the clouds in immersive 3D simulation.' }
 };
-const MOOD_EMOJIS = { hype:'⚡', chill:'😌', competitive:'🏆', chaotic:'💥', social:'👥', explore:'🌌' };
+const MOOD_SVGS = {
+  hype:        `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+  chill:       `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" x2="6" y1="1" y2="4"/><line x1="10" x2="10" y1="1" y2="4"/><line x1="14" x2="14" y1="1" y2="4"/></svg>`,
+  competitive: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>`,
+  chaotic:     `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`,
+  social:      `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  explore:     `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`
+};
 
 const moodEmoji = document.getElementById('moodEmoji');
 const moodResult = document.getElementById('moodResult');
@@ -770,7 +788,11 @@ document.querySelectorAll('.mood-btn').forEach(btn => {
     const mood = btn.getAttribute('data-mood');
     const pick = MOOD_MAP[mood];
     if (!pick || !moodResult) return;
-    if (moodEmoji) { moodEmoji.textContent = MOOD_EMOJIS[mood]; moodEmoji.style.transform = 'scale(1.25) rotate(-5deg)'; setTimeout(() => { moodEmoji.style.transform = ''; }, 300); }
+    if (moodEmoji && MOOD_SVGS[mood]) {
+      moodEmoji.innerHTML = MOOD_SVGS[mood];
+      moodEmoji.style.transform = 'scale(1.2) rotate(-5deg)';
+      setTimeout(() => { moodEmoji.style.transform = ''; }, 300);
+    }
     moodResultImg.src = pick.img;
     moodResultImg.alt = pick.title;
     moodResultGame.textContent = pick.title;
@@ -782,7 +804,7 @@ document.querySelectorAll('.mood-btn').forEach(btn => {
     // Force re-animation
     moodResult.style.animation = 'none';
     requestAnimationFrame(() => { moodResult.style.animation = ''; });
-    showToast(`${MOOD_EMOJIS[mood]} Perfect match found!`);
+    showToast('Match found: ' + pick.title + '!');
   });
 });
 
@@ -794,9 +816,9 @@ moodResultPlay?.addEventListener('click', () => {
 
 // ---- Achievement System ----
 const ACHIEVEMENTS = [
-  { key: 'first_play',   name: '🎮 First Play!',        desc: 'You played your first game',      condition: count => count === 1 },
-  { key: 'three_games',  name: '🔥 Triple Threat',      desc: 'Played 3 different games',         condition: count => count === 3 },
-  { key: 'all_games',    name: '⭐ Game Master',         desc: 'Tried every game on GameZone!',    condition: count => count >= 5 },
+  { key: 'first_play',   name: 'First Play!',        desc: 'You played your first game',      condition: count => count === 1 },
+  { key: 'three_games',  name: 'Triple Threat',      desc: 'Played 3 different games',         condition: count => count === 3 },
+  { key: 'all_games',    name: 'Game Master',         desc: 'Tried every game on GameZone!',    condition: count => count >= 6 },
 ];
 
 function checkAchievements(title) {
