@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>GameZone — Free Online Arcade Games</title>
+  <meta name="description" content="Play thousands of free online games instantly in your browser! No download, no sign-up." />
+  <meta name="theme-color" content="#7c3aed" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Ambient Background Orbs -->
+<div class="ambient-orbs" aria-hidden="true">
+  <div class="ambient-orb"></div>
+  <div class="ambient-orb"></div>
+  <div class="ambient-orb"></div>
+  <div class="ambient-orb"></div>
+</div>
+
+<!-- Floating Particle Canvas -->
+<canvas id="particleCanvas" aria-hidden="true"></canvas>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+
+    <!-- Logo -->
+    <a href="#" class="logo-link" aria-label="GameZone home">
+      <span class="logo-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="18" x2="18.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg>
+      </span>
+      <span class="logo-text">Game<span class="logo-accent">Zone</span></span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="main-nav" aria-label="Main">
+      <a href="#" class="nav-link nav-active">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Home
+      </a>
+      <a href="#" class="nav-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="18" x2="18.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258A4 4 0 0 0 17.32 5z"/></svg>
+        Games
+      </a>
+      <a href="#" class="nav-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+        Categories
+      </a>
+      <a href="#" class="nav-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+        New
+      </a>
+      <a href="#" class="nav-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        Trending
+      </a>
+    </nav>
+
+    <!-- Right Actions -->
+    <div class="header-actions">
+      <!-- Desktop Search Bar -->
+      <button class="search-bar" id="searchBtn" aria-label="Search games">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <span class="search-placeholder">Search games...</span>
+        <kbd>Ctrl K</kbd>
+      </button>
+
+      <!-- Mobile Search Icon Button -->
+      <button class="icon-btn mobile-search-btn" id="mobileSearchBtn" aria-label="Search games" title="Search games">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+
+      <!-- Surprise Me -->
+      <button class="btn-surprise" id="surpriseBtn" title="Play a random game!">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        <span class="surprise-text">Surprise Me!</span>
+      </button>
+
+      <!-- Wishlist -->
+      <button class="icon-btn wishlist-btn" aria-label="Saved games" title="Saved games">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+      </button>
+
+      <!-- Avatar -->
+      <button class="icon-btn avatar-btn" aria-label="Account" title="Account">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+      </button>
+
+      <!-- Mobile menu btn -->
+      <button class="icon-btn mobile-menu-btn" aria-label="Open menu" id="menuBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Drawer -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <nav class="drawer-nav">
+    <div class="drawer-header">
+      <a href="#" class="logo-link">
+        <span class="logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="18" x2="18.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg>
+        </span>
+        <span class="logo-text">Game<span class="logo-accent">Zone</span></span>
+      </a>
+      <button class="icon-btn" id="closeDrawer" aria-label="Close menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- Quick search trigger in drawer -->
+    <button class="drawer-search-btn" id="drawerSearchBtn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <span>Search all games...</span>
+    </button>
+
+    <div class="drawer-section-label">NAVIGATION</div>
+    <a href="#main" class="drawer-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home</a>
+    <a href="#playableGamesSection" class="drawer-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="18" x2="18.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258A4 4 0 0 0 17.32 5z"/></svg> Playable Games</a>
+    <a href="#spotlight-section" class="drawer-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Featured Spotlight</a>
+
+    <div class="drawer-section-label">CATEGORIES</div>
+    <div class="drawer-categories">
+      <button class="drawer-cat-chip" data-drawer-cat="all">All Games</button>
+      <button class="drawer-cat-chip" data-drawer-cat="physics">Physics</button>
+      <button class="drawer-cat-chip" data-drawer-cat="racing">Racing</button>
+      <button class="drawer-cat-chip" data-drawer-cat="2player">2 Player</button>
+      <button class="drawer-cat-chip" data-drawer-cat="troll">Troll &amp; Puzzle</button>
+      <button class="drawer-cat-chip" data-drawer-cat="sim">3D Simulation</button>
+    </div>
+
+    <div class="drawer-footer">
+      <button class="btn-surprise drawer-surprise-btn" id="drawerSurpriseBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        Surprise Me!
+      </button>
+    </div>
+  </nav>
+</div>
+
+<!-- Search Modal -->
+<div class="search-modal" id="searchModal">
+  <div class="search-modal-backdrop" id="searchBackdrop"></div>
+  <div class="search-modal-inner">
+    <div class="search-input-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" placeholder="Search for games…" id="searchInput" autocomplete="off" />
+      <kbd>Esc</kbd>
+    </div>
+    <div class="search-results"><p class="search-hint">Start typing to search our playable games…</p></div>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<main id="main">
+  <div class="container main-content">
+    <h1 class="sr-only">GameZone — Play free online games — no download, no install.</h1>
+
+    <!-- ===== HERO ===== -->
+    <div class="hero-banner">
+      <!-- Left Content -->
+      <div class="hero-left">
+        <div class="hero-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+          100% FREE HTML5 GAMES – NO DOWNLOADS
+        </div>
+        <h2 class="hero-title">Play Free Browser Games<br><span class="hero-title-accent">Instantly</span></h2>
+        <p class="hero-desc">No download and no sign-up. Explore the collection or jump straight into today's quick pick.</p>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="stat-icon"><line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="18" x2="18.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258A4 4 0 0 0 17.32 5z"/></svg>
+            <div class="stat-info"><span class="stat-num" data-target="5">0</span><span class="stat-label">FREE GAMES</span></div>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="stat-icon"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+            <div class="stat-info"><span class="stat-num" data-target="5">0</span><span class="stat-label">CATEGORIES</span></div>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="stat-icon"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            <div class="stat-info"><span class="stat-num" data-target="0">0</span><span class="stat-label">DOWNLOADS</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Character Image + Quick Pick -->
+      <div class="hero-right">
+        <img class="hero-char-img" src="assets/hero_character.jpg" alt="Featured gaming warrior character" />
+        <div class="hero-overlay-grad"></div>
+        <!-- Quick Pick Card -->
+        <a href="#spotlight-section" class="quick-pick-card" id="heroQuickPick" aria-label="Play: Flip Bottle Run" data-game-url="https://bottle-flip-navy.vercel.app/" data-game-title="Flip Bottle Run">
+          <img class="qp-thumb" src="assets/bottle_flip.jpg" alt="Flip Bottle Run" />
+          <div class="qp-info">
+            <span class="qp-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5z"/></svg>
+              FEATURED PICK
+            </span>
+            <span class="qp-title">Flip Bottle Run</span>
+            <span class="qp-action">Play instantly →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- ===== LIVE PLAYER BAR ===== -->
+    <div class="live-bar" aria-hidden="true">
+      <div class="live-bar-track" id="liveBarTrack">
+        <!-- Duplicated for infinite scroll -->
+        <div class="live-item"><span class="live-dot"></span> <strong>5,630</strong> playing Tumblebolt</div>
+        <div class="live-item"><span class="live-dot"></span> <strong>4,192</strong> playing Tumble Tussle</div>
+        <div class="live-item"><span class="live-dot"></span> <strong>3,418</strong> playing Trust Issues</div>
+        <div class="live-item"><span class="live-dot"></span> <strong>2,847</strong> playing Flip Bottle Run</div>
+        <div class="live-item"><span class="live-dot"></span> <strong>1,940</strong> playing Flight Simulator 3D</div>
+        <!-- Duplicate set for seamless loop -->
+        <div class="live-item"><span class="live-dot"></span> <strong>5,630</strong> playing Tumblebolt</div>
+        <div class="live-item"><span class="live-dot"></span> <strong>4,192</strong> playing Tumble Tussle</div>
+        <div class="live-item"><span class="live-dot"></span> <strong>3,418</strong> playing Trust Issues</div>
+        <div class="live-item"><span class="live-dot"></span> <strong>2,847</strong> playing Flip Bottle Run</div>
+        <div class="live-item"><span class="live-dot"></span> <strong>1,940</strong> playing Flight Simulator 3D</div>
+      </div>
+    </div>
+
+    <!-- ===== CATEGORY CHIPS ===== -->
+    <div class="category-chips-row">
+      <div class="category-chips">
+        <a href="#" class="chip chip-active" data-cat="all">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+          All Games (5)
+        </a>
+        <a href="#" class="chip" data-cat="physics">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          Physics
+        </a>
+        <a href="#" class="chip" data-cat="racing">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2Z"/><path d="M3 11h18"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+          Racing &amp; Stunt
+        </a>
+        <a href="#" class="chip" data-cat="2player">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          2 Player
+        </a>
+        <a href="#" class="chip" data-cat="troll">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 14h6l2-9 4 18 2-9h6"/></svg>
+          Troll &amp; Puzzle
+        </a>
+        <a href="#" class="chip" data-cat="sim">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          3D Simulation
+        </a>
+      </div>
+    </div>
+
+    <!-- ===== FEATURED GAME SPOTLIGHT: FLIP BOTTLE RUN ===== -->
+    <section class="spotlight-section" id="spotlight-section" aria-labelledby="spotlight-heading">
+      <div class="spotlight-card">
+        <div class="spotlight-media">
+          <img src="assets/bottle_flip.jpg" alt="Flip Bottle Run — Arcade Game" class="spotlight-img" />
+          <div class="spotlight-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            FEATURED GAME OF THE DAY
+          </div>
+          <button class="spotlight-play-overlay-btn" data-game-url="https://bottle-flip-navy.vercel.app/" data-game-title="Flip Bottle Run" aria-label="Play Flip Bottle Run">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+          </button>
+        </div>
+        <div class="spotlight-body">
+          <div class="spotlight-meta-tags">
+            <span class="spotlight-tag tag-gradient">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+              #1 Trending
+            </span>
+            <span class="spotlight-tag">Arcade</span>
+            <span class="spotlight-tag">Physics</span>
+            <span class="spotlight-tag">Casual</span>
+            <span class="spotlight-tag">Skill</span>
+          </div>
+
+          <h2 id="spotlight-heading" class="spotlight-title">Flip Bottle Run</h2>
+
+          <div class="spotlight-rating-row">
+            <div class="stars">★★★★★</div>
+            <span class="spotlight-score">4.9 / 5.0</span>
+            <span class="spotlight-players">(18,650 plays)</span>
+          </div>
+
+          <p class="spotlight-description">
+            Master the art of the perfect bottle flip! Tap or click to launch your bottle into high-flying flips across floating cosmic platforms. Calculate the spin, land upright to survive the run, collect shiny gold coins, and unlock 4 awesome custom bottles in the in-game shop!
+          </p>
+
+          <div class="spotlight-perks">
+            <div class="perk-item">
+              <span class="perk-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              </span>
+              <span><strong>One-Tap Physics:</strong> Precise jump timing and upright landing balance</span>
+            </div>
+            <div class="perk-item">
+              <span class="perk-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </span>
+              <span><strong>Shop &amp; Skins:</strong> Collect coins to unlock Classic, Red, Neon &amp; Glass bottles</span>
+            </div>
+            <div class="perk-item">
+              <span class="perk-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </span>
+              <span><strong>Cosmic Atmosphere:</strong> Neon platforms with midnight deep-navy space glows</span>
+            </div>
+          </div>
+
+          <div class="spotlight-buttons">
+            <button class="btn-spotlight-primary" data-game-url="https://bottle-flip-navy.vercel.app/" data-game-title="Flip Bottle Run">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+              Play Now Inside GameZone
+            </button>
+            <a href="https://bottle-flip-navy.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-spotlight-secondary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              Open in New Window
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PLAYABLE GAMES (ALL VERIFIED WORKING GAMES) ===== -->
+    <section class="games-section" id="playableGamesSection" aria-labelledby="sec-playable">
+      <div class="section-heading">
+        <h2 id="sec-playable" class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#a855f7" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Playable Games
+        </h2>
+        <span class="section-badge-counter">5 Free Games</span>
+      </div>
+      <div class="game-grid" id="mainGameGrid">
+        <!-- 1. Tumblebolt (3D Physics Stunt Racing) -->
+        <a href="#" class="gcard" title="Tumblebolt" data-game-url="Tumblebolt.html" data-game-title="Tumblebolt" data-cat="racing physics">
+          <div class="gcard-img-wrap">
+            <img src="assets/tumblebolt.jpg" alt="Tumblebolt - 3D Physics Stunt Racing" loading="eager" />
+            <span class="badge badge-hot"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 3D STUNT</span>
+          </div>
+          <div class="gcard-body">
+            <h3 class="gcard-title">Tumblebolt</h3>
+            <div class="gcard-rating"><span class="stars">★★★★★</span><span class="rating-val">4.9</span><span class="rating-count">(42.1k)</span></div>
+            <button class="btn-play" data-game-url="Tumblebolt.html"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="6 3 20 12 6 21 6 3"/></svg> Play Now</button>
+          </div>
+        </a>
+
+        <!-- 2. Trust Issues (Viral Troll Platformer) -->
+        <a href="#" class="gcard" title="Trust Issues" data-game-url="Trust Issues.html" data-game-title="Trust Issues" data-cat="troll action">
+          <div class="gcard-img-wrap">
+            <img src="assets/trust_issues.jpg" alt="Trust Issues - Viral Troll Platformer" loading="eager" />
+            <span class="badge badge-hot"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg> VIRAL</span>
+          </div>
+          <div class="gcard-body">
+            <h3 class="gcard-title">Trust Issues</h3>
+            <div class="gcard-rating"><span class="stars">★★★★★</span><span class="rating-val">4.9</span><span class="rating-count">(34.8k)</span></div>
+            <button class="btn-play" data-game-url="Trust Issues.html"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="6 3 20 12 6 21 6 3"/></svg> Play Now</button>
+          </div>
+        </a>
+
+        <!-- 3. Tumble Tussle (2-Player Ragdoll Brawler) -->
+        <a href="#" class="gcard" title="Tumble Tussle" data-game-url="TUMBLE TUSSLE.html" data-game-title="Tumble Tussle" data-cat="2player physics">
+          <div class="gcard-img-wrap">
+            <img src="assets/tumble_tussle.jpg" alt="Tumble Tussle - 2 Player Ragdoll Party Brawler" loading="eager" />
+            <span class="badge badge-hot"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> 2 PLAYER</span>
+          </div>
+          <div class="gcard-body">
+            <h3 class="gcard-title">Tumble Tussle</h3>
+            <div class="gcard-rating"><span class="stars">★★★★★</span><span class="rating-val">4.9</span><span class="rating-count">(28.4k)</span></div>
+            <button class="btn-play" data-game-url="TUMBLE TUSSLE.html"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="6 3 20 12 6 21 6 3"/></svg> Play Now</button>
+          </div>
+        </a>
+
+        <!-- 4. Flip Bottle Run (Cosmic Physics Runner) -->
+        <a href="#" class="gcard" title="Flip Bottle Run" data-game-url="https://bottle-flip-navy.vercel.app/" data-game-title="Flip Bottle Run" data-cat="physics">
+          <div class="gcard-img-wrap">
+            <img src="assets/bottle_flip.jpg" alt="Flip Bottle Run" loading="eager" />
+            <span class="badge badge-hot"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg> #1 TRENDING</span>
+          </div>
+          <div class="gcard-body">
+            <h3 class="gcard-title">Flip Bottle Run</h3>
+            <div class="gcard-rating"><span class="stars">★★★★★</span><span class="rating-val">4.9</span><span class="rating-count">(18.6k)</span></div>
+            <button class="btn-play" data-game-url="https://bottle-flip-navy.vercel.app/"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="6 3 20 12 6 21 6 3"/></svg> Play Now</button>
+          </div>
+        </a>
+
+        <!-- 5. Flight Simulator 3D (3D Airplane Landing) -->
+        <a href="#" class="gcard" title="Flight Simulator 3D" data-game-url="Plane_Landing_Game_v2/index.html" data-game-title="Flight Simulator 3D" data-cat="sim">
+          <div class="gcard-img-wrap">
+            <img src="assets/flight_sim.jpg" alt="Flight Simulator 3D" loading="eager" />
+            <span class="badge badge-new"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg> 3D SIM</span>
+          </div>
+          <div class="gcard-body">
+            <h3 class="gcard-title">Flight Simulator 3D</h3>
+            <div class="gcard-rating"><span class="stars">★★★★★</span><span class="rating-val">4.8</span><span class="rating-count">(12.4k)</span></div>
+            <button class="btn-play" data-game-url="Plane_Landing_Game_v2/index.html"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="6 3 20 12 6 21 6 3"/></svg> Play Now</button>
+          </div>
+        </a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo-link"><span class="logo-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="18" x2="18.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258A4 4 0 0 0 17.32 5z"/></svg></span><span class="logo-text">Game<span class="logo-accent">Zone</span></span></a>
+      <p class="footer-tagline">Play free online games — no download, no sign-up.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col"><h3 class="footer-col-title">Games</h3><a href="#">Popular Games</a><a href="#">New Games</a><a href="#">Trending</a><a href="#">All Games</a></div>
+      <div class="footer-col"><h3 class="footer-col-title">Categories</h3><a href="#">Action</a><a href="#">Puzzle</a><a href="#">Racing</a><a href="#">Arcade</a></div>
+      <div class="footer-col"><h3 class="footer-col-title">Info</h3><a href="#">About</a><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Contact</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div class="container"><p>© 2026 GameZone. All rights reserved.</p></div></div>
+</footer>
+
+<!-- ===== GAME PLAYER MODAL ===== -->
+<div class="game-modal" id="gameModal" role="dialog" aria-modal="true" aria-labelledby="modalGameTitle">
+  <div class="game-modal-backdrop" id="gameModalBackdrop"></div>
+  <div class="game-modal-container">
+    <!-- Header -->
+    <div class="game-modal-header">
+      <div class="game-modal-info">
+        <span class="modal-status-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+          PLAYING NOW
+        </span>
+        <h3 class="game-modal-title" id="modalGameTitle">Flip Bottle Run</h3>
+      </div>
+      <div class="game-modal-actions">
+        <button class="modal-btn modal-info-btn" id="modalInfoBtn" title="Toggle game details and controls" aria-label="Toggle game details">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </button>
+        <button class="modal-btn" id="modalFullscreenBtn" title="Toggle Fullscreen" aria-label="Toggle Fullscreen">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" x2="14" y1="3" y2="10"/><line x1="3" x2="10" y1="21" y2="14"/></svg>
+        </button>
+        <a href="https://bottle-flip-navy.vercel.app/" target="_blank" rel="noopener noreferrer" class="modal-btn" id="modalExternalBtn" title="Open in New Tab" aria-label="Open in New Tab">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+        </a>
+        <button class="modal-btn modal-close" id="modalCloseBtn" title="Close Game" aria-label="Close Game">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Live Frame -->
+    <div class="game-frame-box" id="gameFrameBox">
+      <iframe id="gameModalIframe" src="" title="Game Player" allow="fullscreen; autoplay" loading="lazy"></iframe>
+    </div>
+
+    <!-- Metadata & Controls -->
+    <div class="game-modal-footer" id="gameModalFooter">
+      <div class="modal-col">
+        <h4 class="modal-sec-title">About This Game</h4>
+        <p class="modal-sec-desc" id="modalGameDesc">
+          Flip Bottle Run is a fast-paced physics-based casual runner. Time your flips across floating platforms, land perfectly upright to stay alive, gather gold coins, and unlock cool bottle skins in the shop!
+        </p>
+      </div>
+      <div class="modal-col modal-col-controls">
+        <h4 class="modal-sec-title">Controls</h4>
+        <div class="control-pills" id="modalControlPills">
+          <span class="control-pill"><kbd>Click / Tap</kbd> Flip Bottle</span>
+          <span class="control-pill"><kbd>Space</kbd> Jump</span>
+          <span class="control-pill"><kbd>Goal</kbd> Land Upright</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MOBILE BOTTOM NAVIGATION BAR ===== -->
+<nav class="mobile-bottom-bar" id="mobileBottomBar" aria-label="Mobile Bottom Navigation">
+  <a href="#main" class="bottom-bar-item bottom-bar-active" id="bbHome">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Home</span>
+  </a>
+  <a href="#playableGamesSection" class="bottom-bar-item" id="bbGames">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="18" x2="18.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258A4 4 0 0 0 17.32 5z"/></svg>
+    <span>Games</span>
+  </a>
+  <button class="bottom-bar-item bottom-bar-surprise" id="bbSurprise" aria-label="Surprise game">
+    <div class="bottom-bar-surprise-glow">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+    </div>
+    <span>Surprise</span>
+  </button>
+  <button class="bottom-bar-item" id="bbSearch" aria-label="Search games">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <span>Search</span>
+  </button>
+  <button class="bottom-bar-item" id="bbMenu" aria-label="Open menu">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+    <span>Menu</span>
+  </button>
+</nav>
+
+<script src="script.js"></script>
+</body>
+</html>
