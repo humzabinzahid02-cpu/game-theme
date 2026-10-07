@@ -620,4 +620,209 @@ if (heroRight && heroCharImg) {
   });
 }
 
+// ---- Game of the Day Countdown ----
+(function initGOTDCountdown() {
+  const hEl = document.getElementById('gotdH');
+  const mEl = document.getElementById('gotdM');
+  const sEl = document.getElementById('gotdS');
+  if (!hEl || !mEl || !sEl) return;
+
+  function update() {
+    const now = new Date();
+    // Countdown to midnight (end of "today")
+    const midnight = new Date(now);
+    midnight.setHours(24, 0, 0, 0);
+    const diff = Math.max(0, midnight - now);
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    hEl.textContent = String(h).padStart(2, '0');
+    mEl.textContent = String(m).padStart(2, '0');
+    sEl.textContent = String(s).padStart(2, '0');
+  }
+  update();
+  setInterval(update, 1000);
+})();
+
+// ---- Hot Right Now & Genre Cards — click handlers ----
+document.querySelectorAll('.hot-card, .genre-card').forEach(card => {
+  card.addEventListener('click', (e) => {
+    if (e.target.classList.contains('genre-play-btn')) e.stopPropagation();
+    const url = card.getAttribute('data-game-url');
+    const title = card.getAttribute('data-game-title') || 'Game';
+    if (url) openGameModal(url, title);
+  });
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      const url = card.getAttribute('data-game-url');
+      const title = card.getAttribute('data-game-title') || 'Game';
+      if (url) openGameModal(url, title);
+    }
+  });
+});
+
+// Genre play buttons
+document.querySelectorAll('.genre-play-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const card = btn.closest('.genre-card');
+    const url = card?.getAttribute('data-game-url');
+    const title = card?.getAttribute('data-game-title') || 'Game';
+    if (url) openGameModal(url, title);
+  });
+});
+
+// GOTD play button
+document.querySelector('.gotd-play-btn')?.addEventListener('click', (e) => {
+  const url = e.currentTarget.getAttribute('data-game-url');
+  const title = e.currentTarget.getAttribute('data-game-title');
+  if (url) openGameModal(url, title);
+});
+
+// ---- Recently Played (localStorage) ----
+const RECENTLY_KEY = 'gz_recently_played';
+const MAX_RECENT = 5;
+
+function getRecentlyPlayed() {
+  try { return JSON.parse(localStorage.getItem(RECENTLY_KEY) || '[]'); }
+  catch { return []; }
+}
+function addToRecentlyPlayed(url, title) {
+  let list = getRecentlyPlayed();
+  // Remove duplicate
+  list = list.filter(g => g.url !== url);
+  // Find thumbnail from known games
+  const known = ALL_GAMES_SEARCH.find(g => g.url === url || g.title === title);
+  const img = known?.img || 'assets/tumblebolt.jpg';
+  list.unshift({ url, title, img });
+  if (list.length > MAX_RECENT) list = list.slice(0, MAX_RECENT);
+  try { localStorage.setItem(RECENTLY_KEY, JSON.stringify(list)); }
+  catch {}
+  renderRecentlyPlayed();
+}
+function renderRecentlyPlayed() {
+  const section = document.getElementById('recentlySection');
+  const row = document.getElementById('recentlyRow');
+  if (!section || !row) return;
+  const list = getRecentlyPlayed();
+  if (list.length === 0) { section.style.display = 'none'; return; }
+  section.style.display = '';
+  row.innerHTML = list.map(g => `
+    <div class="hot-card" data-game-url="${g.url}" data-game-title="${g.title}" tabindex="0" role="button" aria-label="Play ${g.title}">
+      <img src="${g.img}" alt="${g.title}" class="hot-card-img" />
+      <div class="hot-card-glow"></div>
+      <div class="hot-card-info">
+        <span class="hot-card-title">${g.title}</span>
+        <span class="hot-card-stat" style="color:var(--cyan);">Recently Played</span>
+      </div>
+    </div>
+  `).join('');
+  // Re-bind clicks
+  row.querySelectorAll('.hot-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const url = card.getAttribute('data-game-url');
+      const title = card.getAttribute('data-game-title');
+      if (url) openGameModal(url, title);
+    });
+  });
+}
+renderRecentlyPlayed();
+
+// Clear recently played
+document.getElementById('recentlyClearBtn')?.addEventListener('click', () => {
+  localStorage.removeItem(RECENTLY_KEY);
+  renderRecentlyPlayed();
+  showToast('Play history cleared');
+});
+
+// Hook into openGameModal to track recently played
+const _origOpenGameModal = openGameModal;
+window.openGameModal = function(url, title) {
+  _origOpenGameModal(url, title);
+  addToRecentlyPlayed(url, title);
+  checkAchievements(title);
+};
+
+// ---- Mood-Based Game Finder ----
+const MOOD_MAP = {
+  hype:        { title: 'Tumblebolt', url: 'Tumblebolt.html', img: 'assets/tumblebolt.jpg', reason: 'Adrenaline-packed 3D stunt racing at full throttle!' },
+  chill:       { title: 'Flip Bottle Run', url: 'https://bottle-flip-navy.vercel.app/', img: 'assets/bottle_flip.jpg', reason: 'Relaxing one-tap physics — flip, land, repeat.' },
+  competitive: { title: 'Tumblebolt', url: 'Tumblebolt.html', img: 'assets/tumblebolt.jpg', reason: 'Chase track records and master every stunt course!' },
+  chaotic:     { title: 'Trust Issues', url: 'Trust Issues.html', img: 'assets/trust_issues.jpg', reason: 'Nothing can be trusted. Absolute controlled chaos!' },
+  social:      { title: 'Tumble Tussle', url: 'TUMBLE TUSSLE.html', img: 'assets/tumble_tussle.jpg', reason: 'Grab a friend and brawl on the same keyboard!' },
+  explore:     { title: 'Flight Simulator 3D', url: 'Plane_Landing_Game_v2/index.html', img: 'assets/flight_sim.jpg', reason: 'Soar above the clouds in immersive 3D simulation.' }
+};
+const MOOD_EMOJIS = { hype:'⚡', chill:'😌', competitive:'🏆', chaotic:'💥', social:'👥', explore:'🌌' };
+
+const moodEmoji = document.getElementById('moodEmoji');
+const moodResult = document.getElementById('moodResult');
+const moodResultImg = document.getElementById('moodResultImg');
+const moodResultGame = document.getElementById('moodResultGame');
+const moodResultReason = document.getElementById('moodResultReason');
+const moodResultPlay = document.getElementById('moodResultPlay');
+let activeMoodUrl = null;
+
+document.querySelectorAll('.mood-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    const mood = btn.getAttribute('data-mood');
+    const pick = MOOD_MAP[mood];
+    if (!pick || !moodResult) return;
+    if (moodEmoji) { moodEmoji.textContent = MOOD_EMOJIS[mood]; moodEmoji.style.transform = 'scale(1.25) rotate(-5deg)'; setTimeout(() => { moodEmoji.style.transform = ''; }, 300); }
+    moodResultImg.src = pick.img;
+    moodResultImg.alt = pick.title;
+    moodResultGame.textContent = pick.title;
+    moodResultReason.textContent = pick.reason;
+    activeMoodUrl = pick.url;
+    moodResultPlay.setAttribute('data-url', pick.url);
+    moodResultPlay.setAttribute('data-title', pick.title);
+    moodResult.style.display = '';
+    // Force re-animation
+    moodResult.style.animation = 'none';
+    requestAnimationFrame(() => { moodResult.style.animation = ''; });
+    showToast(`${MOOD_EMOJIS[mood]} Perfect match found!`);
+  });
+});
+
+moodResultPlay?.addEventListener('click', () => {
+  const url = moodResultPlay.getAttribute('data-url');
+  const title = moodResultPlay.getAttribute('data-title');
+  if (url) openGameModal(url, title);
+});
+
+// ---- Achievement System ----
+const ACHIEVEMENTS = [
+  { key: 'first_play',   name: '🎮 First Play!',        desc: 'You played your first game',      condition: count => count === 1 },
+  { key: 'three_games',  name: '🔥 Triple Threat',      desc: 'Played 3 different games',         condition: count => count === 3 },
+  { key: 'all_games',    name: '⭐ Game Master',         desc: 'Tried every game on GameZone!',    condition: count => count >= 5 },
+];
+
+function checkAchievements(title) {
+  const played = new Set(getRecentlyPlayed().map(g => g.title));
+  const count = played.size;
+  ACHIEVEMENTS.forEach(ach => {
+    const unlocked = JSON.parse(localStorage.getItem('gz_ach_' + ach.key) || 'false');
+    if (!unlocked && ach.condition(count)) {
+      localStorage.setItem('gz_ach_' + ach.key, 'true');
+      showAchievement(ach.name);
+    }
+  });
+}
+
+function showAchievement(name) {
+  const overlay = document.getElementById('achievementOverlay');
+  const nameEl = document.getElementById('achievementName');
+  if (!overlay || !nameEl) return;
+  nameEl.textContent = name;
+  overlay.classList.remove('hide');
+  overlay.classList.add('show');
+  setTimeout(() => {
+    overlay.classList.remove('show');
+    overlay.classList.add('hide');
+    setTimeout(() => overlay.classList.remove('hide'), 500);
+  }, 4000);
+}
+
 console.log('GameZone — Viral Premium Edition loaded');
